@@ -5,7 +5,7 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const IMG_RATIO = 8628 / 1920; // height / width of the full journey image
   const spine = document.getElementById('spine'), fill = document.getElementById('spine-fill');
-  let pts = [], bands = [], ticking = false, lastY = null, lastF = null, S = 0, vh = 0, spTop = 0, spH = 0;
+  let pts = [], bands = [], ticking = false, lastY = null, lastF = null, S = 0, vh = 0, spTop = 0, spH = 0, spMin = 0;
 
   // Each section's start lines up with the start of its chapter band in the image,
   // so the backdrop crosses from one world to the next as each section boundary passes mid-screen.
@@ -23,10 +23,15 @@
     for (const k of bands) if (k.a > 0) pts.push([Math.max(0, Math.min(maxScroll, k.top - vh / 2)), clampY(k.a * S - vh / 2)]);
     pts.push([maxScroll, maxY]);
     pts.sort((p, q) => p[0] - q[0]);
-    // Spine runs from the end of the hero to the end of the last chapter.
-    const hero = document.querySelector('.hero').getBoundingClientRect();
-    spTop = hero.bottom + scrollY;
-    spH = Math.max(0, chapters[chapters.length - 1].getBoundingClientRect().bottom + scrollY - spTop);
+    // One continuous spine: starts just under the strapline, runs to the end of the last chapter.
+    // Layout offsets (not rects) so the fade-in transforms and sticky boxes don't skew it.
+    const docTop = el => { let t = 0; for (; el; el = el.offsetParent) t += el.offsetTop; return t; };
+    const strap = document.querySelector('.strapline'), hero = document.querySelector('.hero');
+    const last = chapters[chapters.length - 1];
+    spTop = docTop(strap) + strap.offsetHeight + 14;
+    spH = Math.max(0, docTop(last) + last.offsetHeight - spTop);
+    // Always-visible part: from the strapline into the top of the Imagine box.
+    spMin = Math.min(spH, docTop(hero) + hero.offsetHeight + 40 - spTop);
     spine.style.top = spTop + 'px'; spine.style.height = spH + 'px';
     lastF = null;
     update();
@@ -47,9 +52,9 @@
     ticking = false;
     const y = Math.round(mapY(scrollY) * 10) / 10;
     if (y !== lastY) { strip.style.transform = `translate3d(-50%, ${-y}px, 0)`; lastY = y; }
-    // The gold line fills down to just past mid-screen as you scroll.
-    const f = reduce.matches || !spH ? 1 : Math.round(Math.min(1, Math.max(0, (scrollY + vh * 0.6 - spTop) / spH)) * 1000) / 1000;
-    if (f !== lastF) { fill.style.transform = `scaleY(${f})`; lastF = f; }
+    // Below the always-visible top part, the line draws down with scroll, tip at mid-viewport.
+    const f = reduce.matches ? spH : Math.round(Math.min(spH, Math.max(spMin, scrollY + vh * 0.5 - spTop)));
+    if (f !== lastF) { fill.style.height = f + 'px'; lastF = f; }
   }
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   addEventListener('resize', layout);
