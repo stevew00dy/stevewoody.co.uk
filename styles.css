@@ -24,7 +24,9 @@ main{position:relative;z-index:2}
 #dust{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
 .hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:6rem 1.5rem}
 h1{font-family:"Montserrat",var(--sans);font-weight:650;font-size:clamp(2.4rem,8.5vw,6.5rem);line-height:1.05;letter-spacing:.06em;text-shadow:0 4px 40px rgba(0,0,0,.55)}
-.cue{display:block;margin-top:3.5rem}
+.strapline{margin-top:1.1rem;font-family:"Montserrat",var(--sans);font-weight:300;font-size:clamp(.82rem,.6rem + .75vw,1.3rem);letter-spacing:.3em;text-wrap:balance;color:rgba(243,232,210,.9);text-shadow:0 2px 24px rgba(0,0,0,.6);padding-left:.3em}
+@media (max-width:480px){.strapline{letter-spacing:.16em;padding-left:.16em}}
+.cue{display:block;margin-top:3rem}
 .cue::after{content:"";display:block;width:1px;height:56px;margin:0 auto;background:linear-gradient(var(--gold),transparent)}
 
 .chapter{position:relative;min-height:250svh;padding:0 clamp(1.25rem,6vw,6rem) 40svh}
