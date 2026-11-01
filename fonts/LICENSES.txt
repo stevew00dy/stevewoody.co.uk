@@ -1,0 +1,5 @@
+Self-hosted fonts in this folder (subset to Latin, converted to WOFF2):
+- Cormorant Garamond (regular and italic, variable weight). Licensed under the SIL Open Font License 1.1.
+- Inter (variable). Licensed under the SIL Open Font License 1.1.
+The OFL allows bundling and self-hosting with a website. Full licence text: https://openfontlicense.org
+- Montserrat (variable weight), used for the "Steve Woody" title. Licensed under the SIL Open Font License 1.1. Copyright the Montserrat Project Authors (https://github.com/JulietaUla/Montserrat).
