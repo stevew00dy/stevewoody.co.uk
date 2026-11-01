@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Steve Woody</title>
-<meta name="description" content="Steve Woody. Look Up, Freedom, The Climb, Foundations, Roots.">
+<meta name="description" content="Steve Woody. Imagine, Freedom, The Climb, Foundations, Roots.">
 <meta name="theme-color" content="#070a1a">
 <link rel="preload" href="fonts/Montserrat.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/Inter.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=7">
 </head>
 <body>
 <div class="bg" aria-hidden="true">
@@ -33,6 +33,7 @@
 <canvas id="dust" aria-hidden="true"></canvas>
 
 <main>
+  <div class="spine" id="spine" aria-hidden="true"><span class="spine-fill" id="spine-fill"></span></div>
   <section class="chapter first" id="look-up" data-band="0,18">
     <div class="hero reveal">
       <h1>Steve Woody</h1>
@@ -40,13 +41,12 @@
     </div>
     <div class="panel reveal">
       <p class="kicker">01</p>
-      <h2>Look Up</h2>
+      <h2 class="paired">Imagine<span class="sub">Everything that exists is created from the vast unknown.</span></h2>
       <blockquote>“A life stable enough to build from, but alive enough that I don’t betray my potential.”</blockquote>
       <p>It starts here, with looking up. Seeing the bigger picture. Setting goals that scare you a little and dreams that feel too big. Asking what your life is actually for. Everything I’ve built began as something I could only see from up here.</p>
     </div>
   </section>
 
-  <div class="divider" aria-hidden="true"></div>
   <section class="chapter" id="freedom" data-band="18,36">
     <div class="panel reveal">
       <p class="kicker">02</p>
@@ -55,7 +55,6 @@
     </div>
   </section>
 
-  <div class="divider" aria-hidden="true"></div>
   <section class="chapter" id="the-climb" data-band="36,50">
     <div class="panel reveal">
       <p class="kicker">03</p>
@@ -64,7 +63,6 @@
     </div>
   </section>
 
-  <div class="divider" aria-hidden="true"></div>
   <section class="chapter" id="foundations" data-band="50,81.4">
     <div class="panel reveal">
       <p class="kicker">04</p>
@@ -73,7 +71,6 @@
     </div>
   </section>
 
-  <div class="divider" aria-hidden="true"></div>
   <section class="chapter" id="roots" data-band="81.4,97.5">
     <div class="panel reveal">
       <p class="kicker">05</p>
@@ -84,12 +81,16 @@
 
   <footer class="contact" data-band="97.5,100">
     <div class="reveal">
-      <p class="contact-line">Want to talk? Contact details coming soon.</p>
+      <p class="contact-line">Want to talk?</p>
+      <ul class="social">
+        <li><a href="https://x.com/stevewoody82" target="_blank" rel="noopener" aria-label="Steve Woody on X"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4.2 4h4.3l11.3 16h-4.3z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M19.4 4l-6.1 6.9M10.7 13.1L4.6 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></a></li>
+        <li><a href="https://www.linkedin.com/in/stevew00dy" target="_blank" rel="noopener" aria-label="Steve Woody on LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="2.75" y="2.75" width="18.5" height="18.5" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="7.6" cy="7.7" r="1.35" fill="currentColor"/><rect x="6.5" y="10.2" width="2.2" height="7.3" fill="currentColor"/><path d="M10.9 10.2h2.1v1.1c.5-.8 1.4-1.3 2.6-1.3 2 0 3 1.3 3 3.6v3.9h-2.2v-3.6c0-1.2-.4-1.9-1.4-1.9s-1.9.7-1.9 2v3.5h-2.2z" fill="currentColor"/></svg></a></li>
+      </ul>
       <p class="small">© Steve Woody</p>
     </div>
   </footer>
 </main>
-<script src="app.js"></script>
-<script src="particles.js"></script>
+<script src="app.js?v=7"></script>
+<script src="particles.js?v=7"></script>
 </body>
 </html>

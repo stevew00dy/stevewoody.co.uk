@@ -4,10 +4,11 @@
   const chapters = [...document.querySelectorAll('section.chapter')];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const IMG_RATIO = 8628 / 1920; // height / width of the full journey image
-  let pts = [], bands = [], ticking = false, lastY = null, S = 0, vh = 0;
+  const spine = document.getElementById('spine'), fill = document.getElementById('spine-fill');
+  let pts = [], bands = [], ticking = false, lastY = null, lastF = null, S = 0, vh = 0, spTop = 0, spH = 0;
 
   // Each section's start lines up with the start of its chapter band in the image,
-  // so the backdrop crosses from one world to the next as the gold divider passes.
+  // so the backdrop crosses from one world to the next as each section boundary passes mid-screen.
   function layout() {
     vh = innerHeight; S = strip.offsetWidth * IMG_RATIO;
     const maxScroll = document.documentElement.scrollHeight - vh;
@@ -22,6 +23,12 @@
     for (const k of bands) if (k.a > 0) pts.push([Math.max(0, Math.min(maxScroll, k.top - vh / 2)), clampY(k.a * S - vh / 2)]);
     pts.push([maxScroll, maxY]);
     pts.sort((p, q) => p[0] - q[0]);
+    // Spine runs from the end of the hero to the end of the last chapter.
+    const hero = document.querySelector('.hero').getBoundingClientRect();
+    spTop = hero.bottom + scrollY;
+    spH = Math.max(0, chapters[chapters.length - 1].getBoundingClientRect().bottom + scrollY - spTop);
+    spine.style.top = spTop + 'px'; spine.style.height = spH + 'px';
+    lastF = null;
     update();
   }
   function mapY(s) {
@@ -40,6 +47,9 @@
     ticking = false;
     const y = Math.round(mapY(scrollY) * 10) / 10;
     if (y !== lastY) { strip.style.transform = `translate3d(-50%, ${-y}px, 0)`; lastY = y; }
+    // The gold line fills down to just past mid-screen as you scroll.
+    const f = reduce.matches || !spH ? 1 : Math.round(Math.min(1, Math.max(0, (scrollY + vh * 0.6 - spTop) / spH)) * 1000) / 1000;
+    if (f !== lastF) { fill.style.transform = `scaleY(${f})`; lastF = f; }
   }
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   addEventListener('resize', layout);
@@ -51,7 +61,7 @@
   const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: 0.15 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // Star-dust trail strength by chapter: bright in Look Up, nearly gone by The Climb, off in Roots.
+  // Star-dust trail strength by chapter: bright in chapter 01, nearly gone by The Climb, off in Roots.
   const LEVELS = [1, 0.4, 0.08, 0.02, 0];
   window.__dustLevel = () => {
     const c = scrollY + innerHeight / 2;
