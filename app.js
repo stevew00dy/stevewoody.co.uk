@@ -5,7 +5,8 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const IMG_RATIO = 8628 / 1920; // height / width of the full journey image
   const spine = document.getElementById('spine'), fill = document.getElementById('spine-fill');
-  let pts = [], bands = [], ticking = false, lastY = null, lastF = null, S = 0, vh = 0, spTop = 0, spH = 0, spMin = 0;
+  let pts = [], bands = [], ticking = false, lastY = null, lastF = null, S = 0, vh = 0, spTop = 0, spH = 0;
+  const DASH = 70; // line length at load: a short dash under the strapline (first 28px is the fade-in)
 
   // Each section's start lines up with the start of its chapter band in the image,
   // so the backdrop crosses from one world to the next as each section boundary passes mid-screen.
@@ -30,8 +31,6 @@
     const last = chapters[chapters.length - 1];
     spTop = docTop(strap) + strap.offsetHeight + 14;
     spH = Math.max(0, docTop(last) + last.offsetHeight - spTop);
-    // Always-visible part: from the strapline into the top of the Imagine box.
-    spMin = Math.min(spH, docTop(hero) + hero.offsetHeight + 40 - spTop);
     spine.style.top = spTop + 'px'; spine.style.height = spH + 'px';
     lastF = null;
     update();
@@ -52,8 +51,10 @@
     ticking = false;
     const y = Math.round(mapY(scrollY) * 10) / 10;
     if (y !== lastY) { strip.style.transform = `translate3d(-50%, ${-y}px, 0)`; lastY = y; }
-    // Below the always-visible top part, the line draws down with scroll, tip at mid-viewport.
-    const f = reduce.matches ? spH : Math.round(Math.min(spH, Math.max(spMin, scrollY + vh * 0.5 - spTop)));
+    // Starts as a short dash under the strapline and grows as you scroll: over the first half-screen
+    // of scroll the tip eases from the dash end to mid-viewport, then it trails at mid-viewport.
+    const t0 = spTop + DASH, t = Math.min(1, scrollY / (vh * 0.5));
+    const f = reduce.matches ? spH : Math.round(Math.min(spH, Math.max(DASH, scrollY + t0 + (vh * 0.5 - t0) * t - spTop)));
     if (f !== lastF) { fill.style.height = f + 'px'; lastF = f; }
   }
   addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
