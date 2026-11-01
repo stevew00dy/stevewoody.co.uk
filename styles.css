@@ -55,11 +55,11 @@ h2.paired .sub{display:block;font-size:clamp(1.3rem,2.2vw,1.75rem);font-weight:4
 blockquote{font-family:var(--serif);font-style:italic;font-size:clamp(1.35rem,2.6vw,1.75rem);line-height:1.35;color:var(--ink);margin-bottom:1.2rem;padding-left:1rem;border-left:1px solid var(--gold-soft)}
 
 
-.contact{min-height:90svh;display:grid;place-items:center;text-align:center;padding:6rem 1.5rem}
+.contact{min-height:90svh;display:grid;place-items:center;text-align:center;padding:6rem 1.5rem;background:radial-gradient(ellipse 34rem 18rem at 50% 50%,rgba(4,6,16,.62),rgba(4,6,16,.3) 55%,transparent 80%)}
 .contact-line{font-family:var(--serif);font-size:clamp(1.6rem,3.5vw,2.4rem)}
 .social{list-style:none;display:flex;justify-content:center;gap:1.4rem;margin-top:1.6rem}
-.social a{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;color:var(--gold);border:1px solid rgba(232,194,122,.35);transition:color .3s,border-color .3s,background-color .3s}
-.social a:hover,.social a:focus-visible{color:var(--ink);border-color:var(--gold);background:rgba(232,194,122,.08);outline:none}
+.social a{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;color:var(--gold);border:1px solid rgba(232,194,122,.6);background-color:rgba(7,10,26,.75);transition:color .3s,border-color .3s,background-color .3s}
+.social a:hover,.social a:focus-visible{color:var(--ink);border-color:var(--gold);background-color:rgba(25,25,34,.8);outline:none}
 .social svg{width:22px;height:22px}
 .small{margin-top:1rem;font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--ink-dim);opacity:.6}
 
